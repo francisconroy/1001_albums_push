@@ -3,6 +3,3 @@ title = "1001_albums_push_config"
 [1001_albums]
 project_name = "Test User"
 project_email = "you@me.com"
-
-[ntfy.sh]
-unique_token = "1234567890"
