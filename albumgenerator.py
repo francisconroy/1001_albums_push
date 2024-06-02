@@ -20,12 +20,21 @@ def get_api_json(url):
         raise Exception("API request failed")
 
 
+def generate_spotify_app_url(spotify_id: str) -> str:
+    return f"spotify:album:{spotify_id}"
+
+
 @dataclass
 class AlbumData:
     spotify_id: str
     album_name: str
     album_artist: str
     album_release: str
+    cover_url: str
+
+    @property
+    def spotify_url(self) -> str:
+        return generate_spotify_app_url(self.spotify_id)
 
 
 def extract_album_data(dictdata: Dict) -> AlbumData:
@@ -33,7 +42,8 @@ def extract_album_data(dictdata: Dict) -> AlbumData:
     return AlbumData(spotify_id=current_album_data['spotifyId'],
                      album_name=current_album_data['name'],
                      album_artist=current_album_data['artist'],
-                     album_release=current_album_data['releaseDate'])
+                     album_release=current_album_data['releaseDate'],
+                     cover_url=current_album_data['images'][-1]['url'])
 
 
 if __name__ == "__main__":

@@ -9,11 +9,6 @@ class TestCleanUsername(TestCase):
         self.assertEqual("test-ralph-user", clean_username("Test Ralph User"))
 
 
-class TestGetAPI(TestCase):
-    def test_get_api(self):
-        self.fail()
-
-
 class TestExtractAlbumData(TestCase):
     def setUp(self):
         self.sample_data = {
@@ -97,4 +92,10 @@ class TestExtractAlbumData(TestCase):
 
     def test_extract_album_data(self):
         ad = extract_album_data(self.sample_data)
+        self.assertEqual(ad.spotify_id, '4DEZVbAxlZPRXWCHUV5wF3')
+        self.assertEqual(ad.album_name, 'Fever To Tell')
+        self.assertEqual(ad.album_artist, 'Yeah Yeah Yeahs')
+        self.assertEqual(ad.album_release, '2003')
+        self.assertEqual(ad.cover_url, 'https://i.scdn.co/image/32d66005dadb1c5c2c8fb109ac39a0178a7cc28a')
+        self.assertEqual(ad.spotify_url, 'spotify:album:4DEZVbAxlZPRXWCHUV5wF3')
         pass
