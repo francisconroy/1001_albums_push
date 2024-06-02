@@ -44,8 +44,3 @@ def extract_album_data(dictdata: Dict) -> AlbumData:
                      album_artist=current_album_data['artist'],
                      album_release=current_album_data['releaseDate'],
                      cover_url=current_album_data['images'][-1]['url'])
-
-
-if __name__ == "__main__":
-    data = get_api_json(get_project_url("Francis Conroy"))
-    pass
