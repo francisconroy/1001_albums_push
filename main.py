@@ -12,7 +12,7 @@ from util import PersistentTopic
 
 
 def prepare_message(album_data: AlbumData) -> (str, Dict):
-    message = f"""New album for today! 🐶
+    message = f"""New album for today!
 Album: {album_data.album_name}
 Artist: {album_data.album_artist}
 Released: {album_data.album_release}
