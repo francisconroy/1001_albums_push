@@ -15,7 +15,7 @@ def generate_unique_key():
 
 
 def generate_unique_topic(username):
-    return f"1001_albums_{clean_username(username)}" + generate_unique_key()
+    return f"1001_albums_{clean_username(username)}_" + generate_unique_key()
 
 
 class PersistentTopic:
