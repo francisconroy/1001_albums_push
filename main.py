@@ -33,7 +33,7 @@ def post_to_topic(topic, message, headers):
 
 def main():
     # Set up topic
-    config = load_config("config.toml")
+    config = load_config("conf/config.toml")
     topic_data = PersistentTopic(config.project_name)
     logging.basicConfig(level=logging.INFO)
     logging.info(f"Using topic {topic_data.topic}")
