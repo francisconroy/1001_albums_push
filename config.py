@@ -23,6 +23,6 @@ def load_config(path) -> Tuple[AlbumsConfig, ScheduleConfig]:
                 project_name=config_data["1001_albums"].get("project_name", ""),
                 project_email=config_data["1001_albums"].get("project_email",
                                                              "")),
-            ScheduleConfig(time=config_data["schedule"].get("time", ""),
+            ScheduleConfig(time=config_data["schedule"].get("notify_time", ""),
                            timezone=config_data["schedule"].get("timezone",
                                                                 "")))
