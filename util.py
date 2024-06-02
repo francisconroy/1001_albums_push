@@ -5,17 +5,17 @@ import shelve
 from albumgenerator import clean_username
 
 
-def generate_spotify_app_url(spotifyId):
-    return f"spotify:album:{spotifyId}"
-
-
-def generate_unique_topic(username):
+def generate_unique_key():
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, 'word_list.txt')
     with open(filename) as wordsfile:
         words = wordsfile.readlines()
     randwords = random.choices(words, k=4)
-    return f"1001_albums_{clean_username(username)}" + "_".join(randwords)
+    return "_".join(randwords)
+
+
+def generate_unique_topic(username):
+    return f"1001_albums_{clean_username(username)}" + generate_unique_key()
 
 
 class PersistentTopic:
