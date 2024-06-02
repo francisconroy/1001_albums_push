@@ -9,7 +9,7 @@ def generate_unique_key():
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, 'word_list.txt')
     with open(filename) as wordsfile:
-        words = wordsfile.readlines()
+        words = [word.strip() for word in wordsfile.readlines()]
     randwords = random.choices(words, k=4)
     return "_".join(randwords)
 
