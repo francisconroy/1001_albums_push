@@ -3,3 +3,7 @@ title = "1001_albums_push_config"
 [1001_albums]
 project_name = "Test User"
 project_email = "you@me.com"
+
+[schedule]
+timezone = "Australia/Sydney"
+notify_time = "09:00"
