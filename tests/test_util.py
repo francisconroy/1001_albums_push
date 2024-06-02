@@ -4,17 +4,6 @@ from unittest.mock import patch
 from util import PersistentTopic, generate_unique_key
 
 
-class TestPersistentTopic(TestCase):
-    def setUp(self):
-        self.topic = PersistentTopic("testuser")
-
-    def test_topic(self):
-        self.fail()
-
-    def test_username(self):
-        self.fail()
-
-
 class TestPersistentTopicCreation(TestCase):
     def setUp(self):
         self.user = "Test User"
