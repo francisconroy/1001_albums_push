@@ -13,7 +13,7 @@ COPY poetry.lock pyproject.toml /app/
 RUN poetry config virtualenvs.create false \
   && poetry install --no-root --no-interaction --no-ansi
 
-COPY albumgenerator.py config.py main.py util.py /app/
+COPY albumgenerator.py config.py main.py util.py word_list.txt /app/
 COPY conf/ /app/conf/
 
 CMD ["python", "main.py"]
