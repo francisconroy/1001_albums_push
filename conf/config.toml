@@ -7,3 +7,6 @@ project_email = "you@me.com"
 [schedule]
 timezone = "Australia/Sydney"
 notify_time = "09:00"
+
+[ntfy]
+topic = "1001_albums_francis-conroy_effect_until_behavior_want"
