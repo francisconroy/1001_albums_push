@@ -17,15 +17,19 @@ class TestLoadConfig(unittest.TestCase):
         [schedule]
         timezone = "Australia/Sydney"
         notify_time = "09:00"
+        
+        [ntfy]
+        topic = "1001_albums_francis-conroy_effect_until_behavior_want"
         """)
         self.temp_file.seek(0)
 
     def test_load_config(self):
-        album_config, schedule_config = load_config(self.temp_file.name)
+        album_config, schedule_config, ntfy_config = load_config(self.temp_file.name)
         self.assertEqual("Test User", album_config.project_name)
         self.assertEqual("you@me.com", album_config.project_email)
         self.assertEqual("Australia/Sydney", schedule_config.timezone)
         self.assertEqual("09:00", schedule_config.time)
+        self.assertEqual("1001_albums_francis-conroy_effect_until_behavior_want", ntfy_config.topic)
 
     def tearDown(self):
         self.temp_file.close()

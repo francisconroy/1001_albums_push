@@ -33,16 +33,15 @@ def post_to_topic(topic, message, headers):
 
 def main():
     # Set up topic
-    album_config, schedule_config = load_config("conf/config.toml")
-    topic_data = PersistentTopic(album_config.project_name)
+    album_config, schedule_config, ntfy_config = load_config("conf/config.toml")
     logging.basicConfig(level=logging.INFO)
-    logging.info(f"Using topic {topic_data.topic}")
+    logging.info(f"Using topic {ntfy_config.topic}")
 
     url = albumgenerator.get_project_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
     message, headers = prepare_message(album_data)
-    post_to_topic(topic_data.topic, message, headers)
+    post_to_topic(ntfy_config.topic, message, headers)
     #
     # def job():
     #     # connect to 1001 albums generator
