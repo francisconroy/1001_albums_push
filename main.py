@@ -1,14 +1,11 @@
 import logging
-import time
 from typing import Dict
 
 import requests
-import schedule
 
 import albumgenerator
 from albumgenerator import AlbumData
 from config import load_config
-from util import PersistentTopic
 
 
 def prepare_message(album_data: AlbumData) -> (str, Dict):
@@ -61,6 +58,7 @@ def main():
     # while True:
     #     schedule.run_pending()
     #     time.sleep(1)
+
 
 if __name__ == "__main__":
     main()
