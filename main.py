@@ -33,12 +33,12 @@ def post_to_topic(topic, message, headers):
 
 def main():
     # Set up topic
-    config = load_config("conf/config.toml")
-    topic_data = PersistentTopic(config.project_name)
+    album_config, schedule_config = load_config("conf/config.toml")
+    topic_data = PersistentTopic(album_config.project_name)
     logging.basicConfig(level=logging.INFO)
     logging.info(f"Using topic {topic_data.topic}")
 
-    url = albumgenerator.get_project_url(config.project_name)
+    url = albumgenerator.get_project_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
     message, headers = prepare_message(album_data)
