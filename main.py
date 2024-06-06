@@ -67,16 +67,16 @@ def main():
     logging.basicConfig(level=logging.INFO)
     log_configuration(album_config, schedule_config, ntfy_config)
 
+    if args.singleshot:
+        notification_job(args.config)
+        return
+
     # Grab the album generator API content to confirm it's a valid project
     url = albumgenerator.get_project_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
     message, headers = prepare_message(album_data)
     logging.info(f"The last album was:\n{message}")
-
-    if args.singleshot:
-        notification_job(args.config)
-        return
 
     schedule.every().day.at(schedule_config.time, schedule_config.timezone).do(
         notification_job,
