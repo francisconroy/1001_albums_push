@@ -1,4 +1,3 @@
 .venv
-config.toml
 topic.db
 conf/private-config.toml
