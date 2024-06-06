@@ -8,7 +8,7 @@ import schedule
 
 import albumgenerator
 from albumgenerator import AlbumData
-from config import load_config
+from config import load_config, AlbumsConfig, ScheduleConfig, NtfyConfig
 
 
 def prepare_message(album_data: AlbumData) -> (str, Dict):
@@ -31,14 +31,20 @@ def post_to_topic(topic, message, headers):
                   headers=headers)
 
 
-def notifcation_job(config_path: str) -> None:
-    logging.info("Running the scheduled daily job")
-    logging.info("Loading configuration")
-    album_config, schedule_config, ntfy_config = load_config(config_path)
+def log_configuration(album_config: AlbumsConfig,
+                      schedule_config: ScheduleConfig,
+                      ntfy_config: NtfyConfig):
     logging.info(f"Configuration:")
     logging.info(f"Albumgenerator config:\n{album_config}")
     logging.info(f"Schedule config:\n{schedule_config}")
     logging.info(f"NTFY.sh config:\n{ntfy_config}")
+
+
+def notifcation_job(config_path: str) -> None:
+    logging.info("Running the scheduled daily job")
+    logging.info("Loading configuration")
+    album_config, schedule_config, ntfy_config = load_config(config_path)
+    log_configuration(album_config, schedule_config, ntfy_config)
 
     url = albumgenerator.get_project_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
@@ -58,7 +64,7 @@ def main():
 
     album_config, schedule_config, ntfy_config = load_config(args.config)
     logging.basicConfig(level=logging.INFO)
-    logging.info(f"Using topic {ntfy_config.topic}")
+    log_configuration(album_config, schedule_config, ntfy_config)
 
     schedule.every().day.at(schedule_config.time, schedule_config.timezone).do(
         notifcation_job,
