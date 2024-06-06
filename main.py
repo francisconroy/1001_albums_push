@@ -1,8 +1,10 @@
 import argparse
 import logging
+import time
 from typing import Dict
 
 import requests
+import schedule
 
 import albumgenerator
 from albumgenerator import AlbumData
@@ -29,6 +31,23 @@ def post_to_topic(topic, message, headers):
                   headers=headers)
 
 
+def notifcation_job(config_path: str) -> None:
+    logging.info("Running the scheduled daily job")
+    logging.info("Loading configuration")
+    album_config, schedule_config, ntfy_config = load_config(config_path)
+    logging.info(f"Configuration:")
+    logging.info(f"Albumgenerator config:\n{album_config}")
+    logging.info(f"Schedule config:\n{schedule_config}")
+    logging.info(f"NTFY.sh config:\n{ntfy_config}")
+
+    url = albumgenerator.get_project_url(album_config.project_name)
+    api_data = albumgenerator.get_api_json(url)
+    album_data = albumgenerator.extract_album_data(api_data)
+    message, headers = prepare_message(album_data)
+    logging.info(f"Sending today's notification: {message}")
+    post_to_topic(ntfy_config.topic, message, headers)
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog='1001 albums push notifications',
@@ -37,35 +56,17 @@ def main():
                         help='The path to the config file')
     args = parser.parse_args()
 
-    # Set up topic
     album_config, schedule_config, ntfy_config = load_config(args.config)
     logging.basicConfig(level=logging.INFO)
     logging.info(f"Using topic {ntfy_config.topic}")
 
-    url = albumgenerator.get_project_url(album_config.project_name)
-    api_data = albumgenerator.get_api_json(url)
-    album_data = albumgenerator.extract_album_data(api_data)
-    message, headers = prepare_message(album_data)
-    post_to_topic(ntfy_config.topic, message, headers)
-    #
-    # def job():
-    #     # connect to 1001 albums generator
-    #     print(config.project_name)
-    #     # get today's album
-    #     # push the link to your phone
-    #     pass
-    #
-    # schedule.every().day.at("10:30").do(job)
-    # schedule.every().day.at("12:42", "Europe/Amsterdam").do(job)
-    #
-    # def job_with_argument(name):
-    #     print(f"I am {name}")
-    #
-    # schedule.every(10).seconds.do(job_with_argument, name="Peter")
-    #
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
+    schedule.every().day.at(schedule_config.time, schedule_config.timezone).do(
+        notifcation_job,
+        config_path=args.config)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(60)
 
 
 if __name__ == "__main__":
