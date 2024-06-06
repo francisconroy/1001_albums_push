@@ -1,3 +1,4 @@
+import argparse
 import logging
 from typing import Dict
 
@@ -29,8 +30,15 @@ def post_to_topic(topic, message, headers):
 
 
 def main():
+    parser = argparse.ArgumentParser(
+        prog='1001 albums push notifications',
+        description='Pushes a daily notification for your 1001 albums project')
+    parser.add_argument('-c', '--config', type=str, default='conf/config.toml',
+                        help='The path to the config file')
+    args = parser.parse_args()
+
     # Set up topic
-    album_config, schedule_config, ntfy_config = load_config("conf/config.toml")
+    album_config, schedule_config, ntfy_config = load_config(args.config)
     logging.basicConfig(level=logging.INFO)
     logging.info(f"Using topic {ntfy_config.topic}")
 
