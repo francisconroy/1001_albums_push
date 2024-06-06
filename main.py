@@ -40,7 +40,7 @@ def log_configuration(album_config: AlbumsConfig,
     logging.info(f"NTFY.sh config:\n{ntfy_config}")
 
 
-def notifcation_job(config_path: str) -> None:
+def notification_job(config_path: str) -> None:
     logging.info("Running the scheduled daily job")
     logging.info("Loading configuration")
     album_config, schedule_config, ntfy_config = load_config(config_path)
@@ -60,6 +60,7 @@ def main():
         description='Pushes a daily notification for your 1001 albums project')
     parser.add_argument('-c', '--config', type=str, default='conf/config.toml',
                         help='The path to the config file')
+    parser.add_argument('-s', '--singleshot', action='store_true')
     args = parser.parse_args()
 
     album_config, schedule_config, ntfy_config = load_config(args.config)
@@ -73,9 +74,12 @@ def main():
     message, headers = prepare_message(album_data)
     logging.info(f"The last album was:\n{message}")
 
+    if args.singleshot:
+        notification_job(args.config)
+        return
 
     schedule.every().day.at(schedule_config.time, schedule_config.timezone).do(
-        notifcation_job,
+        notification_job,
         config_path=args.config)
 
     while True:
