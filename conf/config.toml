@@ -1,12 +1,11 @@
-title = "1001_albums_push_config"
-
+# This is the main configuration file for the 1001 albums push notification service.
 [1001_albums]
-project_name = "Francis Conroy"
-project_email = "you@me.com"
+project_name = "Francis Conroy"  # The name of the 1001 albums generator project
+project_email = "you@me.com"  # The email associated with the project. Currently UNSUPPORTED.
 
 [schedule]
-timezone = "Australia/Sydney"
-notify_time = "09:00"
+timezone = "Australia/Sydney"  # The timezone for scheduling notifications. Please see PYTZ timezones https://gist.githubusercontent.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568/raw/daacf0e4496ccc60a36e493f0252b7988bceb143/pytz-time-zones.py
+notify_time = "09:00"  # The time to send notifications each day in 24h time.
 
 [ntfy]
-topic = "1001_albums_francis-conroy_effect_until_behavior_want"
+topic = "1001_albums_francis-conroy_effect_until_behavior_want"  # The topic for the ntfy.sh service. Please use something unique, I suggest using a passphrase generator to help with this.
