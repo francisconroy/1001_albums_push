@@ -1,0 +1,43 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: 1001-albums-notify
+spec:
+  schedule: "0 9 * * *" #	09:00
+  timeZone: Australia/Sydney
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          volumes:
+            - name: 1001-albums-config
+              configMap:
+                name: 1001-albums-config-file
+          containers:
+            - name: 1001-albums-notify
+              image: ghcr.io/francisconroy/1001_albums_push:main
+              imagePullPolicy: Always
+              command: ["python3", "main.py", "-s"]
+              volumeMounts:
+                - name: 1001-albums-config
+                  mountPath: "/app/conf"
+                  readOnly: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: 1001-albums-config-file
+data:
+  config.toml: |
+    title = "1001_albums_push_config"
+    
+    [1001_albums]
+    project_name = "Francis Conroy"
+    project_email = "you@me.com"
+    
+    [schedule]
+    timezone = "Australia/Sydney"
+    notify_time = "09:00"
+    
+    [ntfy]
+    topic = "1001_albums_francis-conroy_effect_until_behavior_want"
