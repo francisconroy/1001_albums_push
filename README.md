@@ -8,7 +8,6 @@ The notification which appears can be "clicked" on the phone which will auto lau
 
 Future plans:
 - support for other music platforms supported by 1001 albums project e.g. Apple Music, youtube, deezer, tidal, etc.
-- support for email based projects, projects started using an email address
 - support for multiple projects, perhaps even a configuration UI
 - OR integration into the original project
 
