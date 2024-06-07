@@ -33,7 +33,6 @@ data:
     
     [1001_albums]
     project_name = "Francis Conroy"
-    project_email = "you@me.com"
     
     [schedule]
     timezone = "Australia/Sydney"
