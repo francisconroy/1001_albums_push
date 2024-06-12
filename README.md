@@ -10,6 +10,7 @@ Future plans:
 - support for other music platforms supported by 1001 albums project e.g. Apple Music, youtube, deezer, tidal, etc.
 - support for multiple projects, perhaps even a configuration UI
 - OR integration into the original project
+- Support for group mode
 
 ## How it works
 Simply this app does the following:
