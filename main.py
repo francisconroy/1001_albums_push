@@ -46,7 +46,7 @@ def notification_job(config_path: str) -> None:
     album_config, schedule_config, ntfy_config = load_config(config_path)
     log_configuration(album_config, schedule_config, ntfy_config)
 
-    url = albumgenerator.get_project_url(album_config.project_name)
+    url = albumgenerator.get_project_api_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
     message, headers = prepare_message(album_data)
@@ -72,7 +72,7 @@ def main():
         return
 
     # Grab the album generator API content to confirm it's a valid project
-    url = albumgenerator.get_project_url(album_config.project_name)
+    url = albumgenerator.get_project_api_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
     message, headers = prepare_message(album_data)
