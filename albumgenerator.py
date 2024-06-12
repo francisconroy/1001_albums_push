@@ -4,8 +4,12 @@ from typing import Dict
 import requests
 
 
-def get_project_url(username):
+def get_project_api_url(username):
     return f"https://1001albumsgenerator.com/api/v1/projects/{clean_username(username)}"
+
+
+def get_project_main_url(username):
+    return f"https://1001albumsgenerator.com/{clean_username(username)}"
 
 
 def clean_username(username):
@@ -18,6 +22,14 @@ def get_api_json(url):
         return r.json()
     else:
         raise Exception("API request failed")
+
+
+def get_project_page(url):
+    r = requests.get(url)
+    if r.status_code == 200:
+        return r.text
+    else:
+        raise Exception("HTTP request failed")
 
 
 def generate_spotify_app_url(spotify_id: str) -> str:
