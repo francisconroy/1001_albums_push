@@ -47,6 +47,10 @@ def generate_spotify_app_url(spotify_id: str) -> str:
     return f"spotify:album:{spotify_id}"
 
 
+def generate_apple_music_url(apple_id: str) -> str:
+    return f"https://geo.music.apple.com/album/{apple_id}"
+
+
 @dataclass
 class AlbumData:
     spotify_id: str
