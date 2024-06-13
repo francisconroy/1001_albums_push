@@ -54,6 +54,7 @@ def generate_apple_music_url(apple_id: str) -> str:
 @dataclass
 class AlbumData:
     spotify_id: str
+    apple_music_id: str
     album_name: str
     album_artist: str
     album_release: str
@@ -67,6 +68,7 @@ class AlbumData:
 def extract_album_data(dictdata: Dict) -> AlbumData:
     current_album_data = dictdata['currentAlbum']
     return AlbumData(spotify_id=current_album_data['spotifyId'],
+                     apple_music_id=current_album_data['appleMusicId'],
                      album_name=current_album_data['name'],
                      album_artist=current_album_data['artist'],
                      album_release=current_album_data['releaseDate'],
