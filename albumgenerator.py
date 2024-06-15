@@ -60,9 +60,11 @@ class AlbumData:
     album_release: str
     cover_url: str
 
-    @property
-    def spotify_url(self) -> str:
-        return generate_spotify_app_url(self.spotify_id)
+    def track_app_url(self, streaming_service: StreamingServices):
+        if streaming_service == StreamingServices.spotify:
+            return generate_spotify_app_url(self.spotify_id)
+        elif streaming_service == StreamingServices.apple_music:
+            return generate_apple_music_url(self.apple_music_id)
 
 
 def extract_album_data(dictdata: Dict) -> AlbumData:
