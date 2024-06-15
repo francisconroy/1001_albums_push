@@ -62,7 +62,7 @@ class AlbumData:
     album_release: str
     cover_url: str
 
-    def track_app_url(self, streaming_service: StreamingServices):
+    def track_app_url(self, streaming_service: StreamingServices) -> str:
         if streaming_service == StreamingServices.spotify:
             return generate_spotify_app_url(self.spotify_id)
         elif streaming_service == StreamingServices.apple_music:
