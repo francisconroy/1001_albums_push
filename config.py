@@ -3,6 +3,16 @@ from dataclasses import dataclass
 from typing import Tuple
 
 
+class StreamingServices(enum.StrEnum):
+    Spotify = "spotify"
+    apple_music = "appleMusic"
+    # tidal
+    # amazonMusic
+    # youtubeMusic
+    # qobuz
+    # deezer
+
+
 @dataclass
 class AlbumsConfig:
     project_name: str
