@@ -5,7 +5,7 @@ from typing import Tuple
 
 
 class StreamingServices(enum.StrEnum):
-    Spotify = "spotify"
+    spotify = "spotify"
     apple_music = "appleMusic"
     # tidal
     # amazonMusic
