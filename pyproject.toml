@@ -11,6 +11,7 @@ python = "^3.12"
 schedule = "^1.2.2"
 requests = "^2.32.3"
 pytz = "^2024.1"
+coverage = "^7.5.3"
 
 
 [build-system]
