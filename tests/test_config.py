@@ -1,5 +1,4 @@
 import os.path
-import tempfile
 import unittest
 
 from config import load_config

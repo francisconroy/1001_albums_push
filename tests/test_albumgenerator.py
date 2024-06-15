@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from albumgenerator import clean_username, extract_album_data
+from config import StreamingServices
 
 
 class TestCleanUsername(TestCase):
