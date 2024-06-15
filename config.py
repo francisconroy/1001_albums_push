@@ -39,7 +39,8 @@ def load_config(path) -> Tuple[AlbumsConfig, ScheduleConfig, NtfyConfig]:
                 project_name=config_data["1001_albums"].get("project_name",
                                                             ""),
                 streaming_service=StreamingServices(
-                    config_data["1001_albums"].get("streaming_service",))),
+                    config_data["1001_albums"].get("streaming_service",
+                                                   StreamingServices.spotify.value))),
             ScheduleConfig(
                 time=config_data["schedule"].get("notify_time", ""),
                 timezone=config_data["schedule"].get("timezone",
