@@ -46,8 +46,9 @@ def notification_job(config_path: str) -> None:
     album_config, schedule_config, ntfy_config = load_config(config_path)
     log_configuration(album_config, schedule_config, ntfy_config)
 
-    # Visit the project page to ensure that the project doesn't get marked inactive
-    albumgenerator.get_project_page(albumgenerator.get_project_main_url(album_config.project_name))
+    # Unpause the project - the project will auto-pause after four days
+    # if you don't interact with the page
+    albumgenerator.unpause_project(album_config.project_name)
 
     url = albumgenerator.get_project_api_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
