@@ -12,6 +12,10 @@ def get_project_main_url(username):
     return f"https://1001albumsgenerator.com/{clean_username(username)}"
 
 
+def get_project_unpause_url(username):
+    return f"https://1001albumsgenerator.com/api/project/{clean_username(username)}/paused"
+
+
 def clean_username(username):
     return username.lower().strip().replace(" ", "-")
 
@@ -29,6 +33,13 @@ def get_project_page(url):
     if r.status_code == 200:
         return r.text
     else:
+        raise Exception("HTTP request failed")
+
+
+def unpause_project(username):
+    url = get_project_unpause_url(username)
+    r = requests.post(url, json={"paused": False})
+    if r.status_code != 200:
         raise Exception("HTTP request failed")
 
 
