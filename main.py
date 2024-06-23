@@ -11,14 +11,17 @@ from albumgenerator import AlbumData
 from config import load_config, AlbumsConfig, ScheduleConfig, NtfyConfig
 
 
-def prepare_message(album_data: AlbumData) -> (str, Dict):
+def prepare_message(album_data: AlbumData, albums_config: AlbumsConfig) -> (
+str, Dict):
+    streaming_service_url = album_data.track_app_url(
+        albums_config.streaming_service)
     message = f"""New album for today!
 Album: {album_data.album_name}
 Artist: {album_data.album_artist}
 Released: {album_data.album_release}
 """
     headers = {
-        "Click": album_data.spotify_url,
+        "Click": streaming_service_url,
         "Tags": "loudspeaker,cd",
         "Attach": album_data.cover_url,
     }
@@ -53,7 +56,7 @@ def notification_job(config_path: str) -> None:
     url = albumgenerator.get_project_api_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
-    message, headers = prepare_message(album_data)
+    message, headers = prepare_message(album_data, album_config)
     logging.info(f"Sending today's notification: {message}")
     post_to_topic(ntfy_config.topic, message, headers)
 
@@ -78,7 +81,7 @@ def main():
     url = albumgenerator.get_project_api_url(album_config.project_name)
     api_data = albumgenerator.get_api_json(url)
     album_data = albumgenerator.extract_album_data(api_data)
-    message, headers = prepare_message(album_data)
+    message, headers = prepare_message(album_data, album_config)
     logging.info(f"The last album was:\n{message}")
 
     schedule.every().day.at(schedule_config.time, schedule_config.timezone).do(

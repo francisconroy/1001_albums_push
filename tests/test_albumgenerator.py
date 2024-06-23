@@ -1,6 +1,7 @@
 from unittest import TestCase
 
 from albumgenerator import clean_username, extract_album_data
+from config import StreamingServices
 
 
 class TestCleanUsername(TestCase):
@@ -97,5 +98,6 @@ class TestExtractAlbumData(TestCase):
         self.assertEqual(ad.album_artist, 'Yeah Yeah Yeahs')
         self.assertEqual(ad.album_release, '2003')
         self.assertEqual(ad.cover_url, 'https://i.scdn.co/image/32d66005dadb1c5c2c8fb109ac39a0178a7cc28a')
-        self.assertEqual(ad.spotify_url, 'spotify:album:4DEZVbAxlZPRXWCHUV5wF3')
+        self.assertEqual(ad.track_app_url(StreamingServices.spotify), 'spotify:album:4DEZVbAxlZPRXWCHUV5wF3')
+        self.assertEqual(ad.track_app_url(StreamingServices.apple_music), 'https://geo.music.apple.com/album/1440916724')
         pass

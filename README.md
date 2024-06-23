@@ -4,7 +4,7 @@ I thought it would be fun to create a push notification service that would send
 today's album to my phone every day.
 
 The current implementation uses the ntfy.sh service to receive the notifications.
-The notification which appears can be "clicked" on the phone which will auto launch Spotify.
+The notification which appears can be "clicked" on the phone which will auto launch the configured streaming services app.
 
 Future plans:
 - support for other music platforms supported by 1001 albums project e.g. Apple Music, youtube, deezer, tidal, etc.

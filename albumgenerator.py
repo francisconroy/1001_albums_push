@@ -3,6 +3,8 @@ from typing import Dict
 
 import requests
 
+from config import StreamingServices
+
 
 def get_project_api_url(username):
     return f"https://1001albumsgenerator.com/api/v1/projects/{clean_username(username)}"
@@ -47,22 +49,30 @@ def generate_spotify_app_url(spotify_id: str) -> str:
     return f"spotify:album:{spotify_id}"
 
 
+def generate_apple_music_url(apple_id: str) -> str:
+    return f"https://geo.music.apple.com/album/{apple_id}"
+
+
 @dataclass
 class AlbumData:
     spotify_id: str
+    apple_music_id: str
     album_name: str
     album_artist: str
     album_release: str
     cover_url: str
 
-    @property
-    def spotify_url(self) -> str:
-        return generate_spotify_app_url(self.spotify_id)
+    def track_app_url(self, streaming_service: StreamingServices) -> str:
+        if streaming_service == StreamingServices.spotify:
+            return generate_spotify_app_url(self.spotify_id)
+        elif streaming_service == StreamingServices.apple_music:
+            return generate_apple_music_url(self.apple_music_id)
 
 
 def extract_album_data(dictdata: Dict) -> AlbumData:
     current_album_data = dictdata['currentAlbum']
     return AlbumData(spotify_id=current_album_data['spotifyId'],
+                     apple_music_id=current_album_data['appleMusicId'],
                      album_name=current_album_data['name'],
                      album_artist=current_album_data['artist'],
                      album_release=current_album_data['releaseDate'],

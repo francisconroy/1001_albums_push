@@ -1,6 +1,7 @@
 # This is the main configuration file for the 1001 albums push notification service.
 [1001_albums]
 project_name = "Francis Conroy"  # The name of the 1001 albums generator project
+streaming_service = "spotify"  # The streaming service to use for the project. Currently only Spotify is supported.
 
 [schedule]
 timezone = "Australia/Sydney"  # The timezone for scheduling notifications. Please see PYTZ timezones https://gist.githubusercontent.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568/raw/daacf0e4496ccc60a36e493f0252b7988bceb143/pytz-time-zones.py
